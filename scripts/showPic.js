@@ -1,19 +1,29 @@
+const nodeTypeText = 3;
+
 function showPic(which_pic) {
+    
     // change image
     // check if the element we try to manipulate exists
     if (!document.getElementById("placeholder")) return false;
-    var source = which_pic.getAttribute("href");
     var placeholder = document.getElementById("placeholder");
+    // check if placeholder is an img file
+    if (placeholder.nodeName != "IMG") return false;
+    var source = which_pic.getAttribute("href");
     placeholder.setAttribute("src", source);
 
     // change the text under image
     // check if the element we try to manipulate exists
     if (document.getElementById("description")) {
         var description = document.getElementById("description");
-        var text = which_pic.getAttribute("title");
-        description.firstChild.nodeValue = text;
+        var text = which_pic.getAttribute("title") ? which_pic.getAttribute("title") : "";
+        if (description.firstChild.nodeType == nodeTypeText) {
+            description.firstChild.nodeValue = text;
+            return true;
+        }
+    } else {
+        return false;
     }
-   
+    
 }
 
 function countBodyChildren() {
@@ -32,11 +42,13 @@ function prepareGallery() {
     var links = gallery.getElementsByTagName("a");
     for (var i=0; i<links.length; i++) {
         links[i].onclick = function() {
-            showPic(this);
-            return false; // prevent page jump when click on the href
+            // return false if showPic runs successfully
+            // 这里的false可以告诉浏览器不要执行点击后链接本来的动作，页面就不会跳转了
+            return !showPic(this);
         }
     }
 }
+
 // an effective way to load multiple functions when page is loaded
 function addLoadEvent(func) {
     var old_onload = window.onload;
