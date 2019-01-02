@@ -1,7 +1,6 @@
 const nodeTypeText = 3;
 
 function showPic(which_pic) {
-    
     // change image
     // check if the element we try to manipulate exists
     if (!document.getElementById("placeholder")) return false;
@@ -23,7 +22,6 @@ function showPic(which_pic) {
     } else {
         return false;
     }
-    
 }
 
 function countBodyChildren() {
