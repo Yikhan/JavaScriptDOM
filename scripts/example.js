@@ -19,4 +19,9 @@ window.onload = function() {
     
     var txt = document.createTextNode("Hello world");
     para.appendChild(txt);
+
+    var para = document.getElementById("para");
+    para.style.color = "red";
+    para.style.font = "3em Times, serif";
 }
+
